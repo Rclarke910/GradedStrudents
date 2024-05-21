@@ -16,7 +16,7 @@ class StudentTest {
     @Test
     void getExamScoresStringTest() {
 
-        String output = student.getExamScoresString();
+        String output = student.toString();
 
         String expect = "Exam Scores: \n" +
                 "\tExam 1 -> 300.0\n" +

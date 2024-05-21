@@ -33,11 +33,14 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public String getExamScoresString(){
+    @Override
+    public String toString(){
         StringBuilder result = new StringBuilder("Exam Scores: \n");
         for(int i = 0; i < examScores.size(); i++){
             result.append("\tExam ").append(i + 1).append(" -> ").append(examScores.get(i)).append("\n");
         }
+        result.append("Average: ").append(getAverageExamScore()).append("\n");
+
         return result.toString();
     }
 
@@ -46,9 +49,6 @@ public class Student {
         return examScores;
     }
 
-    public void setExamScores(ArrayList<Double> list){
-        this.examScores = list;
-    }
 
     public void addExamScore(double examScore){
         examScores.add(examScore);
@@ -70,7 +70,7 @@ public class Student {
     public String fullString(){
         String message = "Student Name: " + getFirstName() + " " + getLastName() + "\n"
                 + "Average Score: " + getAverageExamScore() + "\n"
-                + getExamScoresString();
+                + toString();
         return message;
     }
 
