@@ -1,13 +1,14 @@
 import java.util.*;
 
-public class Classroom {
+public class Classroom  {
     private Student[] students;
+
     public Student[] getStudents() {
 
         return this.students;
     }
 
-    public Classroom(int maxNumberOfStudents){
+    public Classroom(int maxNumberOfStudents) {
         this.students = new Student[maxNumberOfStudents];
     }
 
@@ -15,65 +16,57 @@ public class Classroom {
         this.students = students;
     }
 
-    public Classroom(){
+    public Classroom() {
         this.students = new Student[30];
     }
 
 
-    public double getAverageExamScore(){
+    public double getAverageExamScore() {
         double total = 0;
-        for (Student student : students){
-           total += student.getAverageExamScore();
+        for (Student student : students) {
+            total += student.getAverageExamScore();
         }
 
         return total / students.length;
     }
 
 
-    public void addStudent(Student student){
-        for(int i = 0; i < students.length; i++){
-             if (students[i] == null) {
+    public void addStudent(Student student) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i] == null) {
                 students[i] = student;
                 break;
+            } else {
+                System.out.println("Classroom is full, cannot add more students.");
             }
-             else{
-                 System.out.println("Classroom is full, cannot add more students.");
-             }
         }
     }
 
-    public void removeStudent(String firstName, String lastName){
-        for(int i = 0; i < students.length; i++){
-            if (students[i].getFirstName() == firstName && students[i].getLastName() == lastName){
+    public void removeStudent(String firstName, String lastName) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i].getFirstName() == firstName && students[i].getLastName() == lastName) {
                 students[i] = null;
             }
         }
     }
 
     public Student[] getStudentsByScore() {
-        Arrays.sort(students, new Comparator<Student>() {
+
+        List<Student> studentList = new ArrayList<>(Arrays.asList(students));
+        studentList.removeIf(student -> student == null);
+        studentList.sort(new Comparator<Student>() {
             @Override
             public int compare(Student s1, Student s2) {
-
-                int scoreCompare = Double.compare(s2.getAverageExamScore(), s1.getAverageExamScore());
-                if (scoreCompare != 0) {
-                    return scoreCompare;
-                }
-
-                int lastNameCompare = s1.getLastName().compareTo(s2.getLastName());
-                if (lastNameCompare != 0) {
-                    return lastNameCompare;
-                }
-
-                return s1.getFirstName().compareTo(s2.getFirstName());
+                return Double.compare(s2.getAverageExamScore(), s1.getAverageExamScore());
             }
         });
 
-        return students;
+
+        return studentList.toArray(new Student[0]);
     }
 
-    
+    }
 
 
 
-}
+
